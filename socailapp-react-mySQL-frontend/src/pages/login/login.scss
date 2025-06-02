@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+}
+
+.login {
+  height: 100vh;
+  background-color: rgb(135, 207, 238);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .card {
+    width: 50%;
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    min-height: 600px;
+    overflow: hidden;
+    .left {
+      flex: 1;
+      background: linear-gradient(
+          rgba(63, 14, 14, 0.482),
+          rgba(235, 43, 25, 0.472)
+        ),
+        url("https://img.freepik.com/free-photo/young-girl-pink-glasses-with-smile-looks-into-camera-points-like-sign-isolated-background_197531-26479.jpg?t=st=1739607733~exp=1739611333~hmac=5d207b070cbd6d1d4b0aaf8265e00b99baac074f10ed2828d9929c7a3bfd891e&w=1380")
+          20% center;
+      background-size: cover;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      color: white;
+      h1 {
+        font-size: 60px;
+        align-self: center;
+      }
+      p {
+        font-size: 20px;
+      }
+      span {
+        font-size: 20px;
+        margin-top: 60px;
+      }
+      button {
+        width: 50%;
+        margin-top: -20px;
+        font-size: 16px;
+
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid white;
+        background-color: rgba(253, 168, 160, 0.247);
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+      }
+      button:hover {
+        background-color: white;
+        color: rgb(235, 43, 25);
+      }
+    }
+
+    .right {
+      background-color: #ffe3ec;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      justify-content: center;
+      align-items: center;
+      h1 {
+        color: rgba(241, 21, 21, 0.662);
+        font-size: 45px;
+        font-weight: 700;
+        text-align: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+        width: 70%;
+        align-self: center;
+        input {
+          border: none;
+          border-bottom: 1px solid rgba(241, 21, 21, 0.876);
+          padding: 12px;
+          font-size: 14px;
+
+          font-weight: 400;
+          &:focus {
+            outline: none;
+            border-bottom: 2px solid rgba(245, 77, 77, 0.876);
+            box-shadow: 0 4px 4px rgba(241, 21, 72, 0.4);
+          }
+          box-shadow: 0 0 4px 0 rgba(25, 25, 25, 0.3);
+        }
+        button {
+          border: none;
+          border-radius: 6px;
+          padding: 10px;
+          font-size: 16px;
+          font-weight: 600;
+          color: white;
+          background-color: rgb(253, 40, 40);
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 0 10px 2px rgba(122, 0, 0, 0.3);
+        }
+        button:hover {
+          background-color: rgb(174, 29, 29);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,234 @@
+@use "../../style.scss" as *;
+@use "sass:map";
+
+.comments {
+  @include themify($themes) {
+    img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .write {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin: 20px 0px;
+      background-color: themed("bgSoft");
+      padding: 15px;
+      border-radius: 12px;
+
+      textarea {
+        flex: 1;
+        min-height: 20px;
+        max-height: 150px;
+        padding: 12px 15px;
+        border: 1px solid themed("border");
+        border-radius: 8px;
+        background-color: themed("bg");
+        color: themed("textColor");
+        font-size: 16px;
+        outline: none;
+        transition: all 0.3s ease;
+        resize: none;
+        overflow-y: hidden;
+        line-height: 1.5;
+        font-family: inherit;
+        scrollbar-width: thin;
+        scrollbar-color: themed("textColorSoft") transparent;
+
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: themed("textColorSoft");
+          border-radius: 3px;
+        }
+
+        &::placeholder {
+          color: themed("textColorSoft");
+          @include mobile {
+            font-size: 10px;
+          }
+        }
+
+        &:focus {
+          border-color: themed("textColor");
+          box-shadow: 0 2px 8px themed("shadowSoft");
+        }
+      }
+
+      button {
+        align-self: flex-start;
+        border: 1px solid themed("border");
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: themed("bg");
+        color: themed("textColor");
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px themed("shadowSoft");
+
+        .sendIcon {
+          font-size: 20px;
+        }
+
+        &:hover {
+          filter: brightness(1.3);
+          transform: translateY(1px);
+          border-color: themed("textColor");
+          box-shadow: 0 4px 12px themed("shadow");
+        }
+
+        &:active {
+          transform: translateY(3px);
+          border-color: themed("textColor");
+          box-shadow: 0 1px 4px themed("shadowSoft");
+        }
+      }
+    }
+    .comment {
+      display: flex;
+      justify-content: space-between;
+      margin: 25px 0;
+      padding: 15px;
+      gap: 20px;
+      background-color: themed("bgSoft");
+      border-radius: 12px;
+      position: relative;
+
+      .info {
+        display: flex;
+        flex: 5;
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-start;
+
+        span {
+          font-weight: 600;
+          font-size: 15px;
+          color: themed("textColor");
+        }
+
+        p {
+          color: themed("textColor");
+          line-height: 1.4;
+          font-size: 14px;
+        }
+
+        .edit-comment-textarea {
+          width: 100%;
+          min-height: 40px;
+          max-width: 100%;
+          resize: vertical;
+          border-radius: 8px;
+          border: 1px solid themed("border");
+          padding: 8px 10px;
+          font-size: 14px;
+          color: themed("textColor");
+          background: themed("bg");
+          margin-bottom: 10px;
+          transition: border 0.2s, box-shadow 0.2s;
+          &:focus {
+            outline: none;
+            border: 1.5px solid themed("primary");
+            box-shadow: 0 0 0 2px themed("primary"), 0 2px 8px themed("shadow");
+          }
+        }
+        .comment-actions {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 5px;
+          .save-btn,
+          .cancel-btn {
+            padding: 5px 14px;
+            border-radius: 6px;
+            border: none;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+          }
+          .save-btn {
+            background: #5271ff;
+            color: #fff;
+            &:hover {
+              background: #4060ee;
+              transform: translateY(-1px);
+            }
+            &:active {
+              background: #3040b0;
+              transform: scale(0.97);
+            }
+          }
+          .cancel-btn {
+            background: themed("bgSoft");
+            color: themed("textColor");
+            &:hover {
+              background: themed("border");
+              transform: translateY(-1px);
+            }
+            &:active {
+              background: themed("border");
+              transform: scale(0.97);
+            }
+          }
+        }
+      }
+
+      .date {
+        flex: 1;
+        align-self: flex-start;
+        color: themed("textColorSoft");
+        font-size: 12px;
+        font-style: italic;
+        opacity: 0.8;
+      }
+    }
+    .comment-menu {
+      display: flex;
+      gap: 8px;
+      margin-left: 10px;
+      .edit-icon,
+      .delete-icon {
+        cursor: pointer;
+        font-size: 20px;
+        color: themed("textColorSoft");
+        transition: color 0.2s, transform 0.2s;
+      }
+      .edit-icon:hover {
+        color: #5271ff;
+        transform: scale(1.1);
+      }
+      .delete-icon:hover {
+        color: #f0544f;
+        transform: scale(1.1);
+      }
+      @include mobile {
+        flex-direction: column;
+        gap: 4px;
+        margin-left: 0;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        background: themed("bgSoft");
+        border-radius: 8px;
+        padding: 2px 2px;
+        .edit-icon,
+        .delete-icon {
+          font-size: 17px;
+        }
+      }
+    }
+  }
+}

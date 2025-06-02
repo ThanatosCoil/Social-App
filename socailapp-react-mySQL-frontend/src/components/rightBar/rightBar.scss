@@ -1,0 +1,128 @@
+@use "../../style.scss" as *;
+
+.rightbar {
+  @include themify($themes) {
+    flex: 3;
+    position: sticky;
+    top: 71px;
+    height: calc(100vh - 71px);
+    overflow: scroll;
+    background-color: themed("bgSoft");
+    color: themed("textColor");
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @include laptop {
+      flex: 2;
+    }
+
+    @include tablet {
+      display: none;
+    }
+    .container {
+      padding: 20px;
+      .item {
+        box-shadow: 0px 0px 15px 1px themed("shadow");
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: themed("bg");
+        border-radius: 10px;
+        span {
+          color: themed("textColorSoft");
+        }
+        .user {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin: 20px 0px;
+          .userInfo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            img {
+              width: 40px;
+              height: 40px;
+              object-fit: cover;
+            }
+            .online {
+              width: 15px;
+              height: 15px;
+              border-radius: 50%;
+              background-color: #51e200;
+              position: absolute;
+              top: 0;
+              left: 28px;
+            }
+            p {
+              font-size: 14px;
+              color: themed("textColorSoft");
+            }
+            span {
+              font-size: 16px;
+              font-weight: 500;
+              color: themed("textColor");
+            }
+          }
+          .buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            @include laptop {
+              flex-direction: column;
+              gap: 5px;
+            }
+
+            button {
+              padding: 6px 12px;
+              border: none;
+              border-radius: 5px;
+              color: white;
+              cursor: pointer;
+              font-size: 14px;
+              font-weight: 500;
+              transition: all 0.3s ease;
+              box-shadow: 0 2px 8px themed("shadow");
+              @include laptop {
+                padding: 2px 6px;
+
+                font-size: 12px;
+              }
+              &:first-child {
+                background-color: #5271ff;
+
+                &:hover {
+                  background-color: #3d5bff;
+                  transform: translateY(-2px);
+                  box-shadow: 0 5px 10px rgba(82, 113, 255, 0.4);
+                }
+
+                &:active {
+                  transform: translateY(0);
+                  box-shadow: 0 2px 5px rgba(82, 113, 255, 0.4);
+                }
+              }
+
+              &:last-child {
+                background-color: #f0544f;
+
+                &:hover {
+                  background-color: #e63e39;
+                  transform: translateY(-2px);
+                  box-shadow: 0 5px 10px rgba(240, 84, 79, 0.4);
+                }
+
+                &:active {
+                  transform: translateY(0);
+                  box-shadow: 0 2px 5px rgba(240, 84, 79, 0.4);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

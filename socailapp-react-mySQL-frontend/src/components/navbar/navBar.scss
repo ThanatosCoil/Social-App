@@ -1,0 +1,294 @@
+@use "../../style.scss" as *;
+
+.navbar {
+  @include themify($themes) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    height: 50px;
+    border-bottom: 1px solid themed("border");
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: themed("bg");
+    color: themed("textColor");
+    z-index: 9999;
+    box-shadow: 0 2px 8px themed("shadowSoft");
+
+    @include tablet {
+      .search {
+        max-width: 200px;
+        min-width: 150px;
+      }
+
+      .right {
+        gap: 10px;
+      }
+    }
+
+    @include mobile {
+      padding: 10px;
+
+      .left {
+        gap: 10px;
+
+        .search {
+          display: none;
+        }
+      }
+
+      .right {
+        display: none;
+      }
+    }
+
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      .icons {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        cursor: pointer;
+
+        svg {
+          transition: all 0.3s ease;
+          &:hover {
+            color: themed("textColor");
+            transform: scale(1.1);
+          }
+
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+      }
+      span {
+        font-weight: bold;
+        font-size: 20px;
+        color: themed("logo");
+      }
+      .search {
+        display: flex;
+        align-items: center;
+        background-color: themed("bgSoft");
+        border: 1px solid themed("border");
+        border-radius: 25px;
+        padding: 0 15px;
+        gap: 12px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px themed("shadowSoft");
+        position: relative;
+        flex: 1;
+        max-width: 800px;
+        min-width: 400px;
+        height: 40px;
+        cursor: text;
+
+        @media (max-width: 1200px) {
+          max-width: 600px;
+          min-width: 300px;
+        }
+
+        @media (max-width: 992px) {
+          max-width: 400px;
+          min-width: 250px;
+        }
+
+        @media (max-width: 768px) {
+          max-width: 300px;
+          min-width: 200px;
+        }
+
+        @include mobile {
+          display: none;
+        }
+
+        .searchIcon {
+          color: themed("textColorSoft");
+          font-size: 20px;
+          flex-shrink: 0;
+        }
+
+        .input {
+          border: none;
+          width: 100%;
+          height: 100%;
+          padding: 10px 0;
+          outline: none;
+          background-color: transparent;
+          color: themed("textColor");
+          font-size: 15px;
+          font-weight: 400;
+
+          &::placeholder {
+            color: themed("textColorSoft");
+            opacity: 0.8;
+          }
+        }
+
+        &:hover {
+          border-color: themed("textColorSoft");
+          box-shadow: 0 4px 12px themed("shadow");
+        }
+
+        &:focus-within {
+          border-color: themed("textColor");
+          box-shadow: 0 6px 16px themed("shadow");
+          transform: scale(1.02);
+
+          .searchIcon {
+            color: themed("textColor");
+          }
+        }
+
+        .search-dropdown {
+          position: absolute;
+          top: 110%;
+          left: 0;
+          width: 100%;
+          background: themed("bg");
+          border: 1px solid themed("border");
+          border-radius: 10px;
+          box-shadow: 0 4px 24px themed("shadowSoft");
+          z-index: 100;
+          max-height: 320px;
+          overflow-y: auto;
+          padding: 6px 0;
+          .search-result {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 18px;
+            text-decoration: none;
+            color: themed("textColor");
+            cursor: pointer;
+            transition: background 0.18s;
+            &:hover {
+              background: themed("bgSoft");
+            }
+            img {
+              width: 32px;
+              height: 32px;
+              border-radius: 50%;
+              object-fit: cover;
+              background: themed("bgSoft");
+            }
+            .search-result-info {
+              display: flex;
+              flex-direction: column;
+              gap: 2px;
+              .search-result-author {
+                font-weight: 600;
+                font-size: 15px;
+                color: themed("textColor");
+              }
+              .search-result-desc {
+                font-size: 13px;
+                color: themed("textColorSoft");
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 180px;
+              }
+            }
+          }
+          .search-loading,
+          .search-empty {
+            padding: 12px 18px;
+            color: themed("textColorSoft");
+            font-size: 15px;
+            text-align: left;
+          }
+        }
+      }
+      .menuIcon {
+        cursor: pointer;
+        font-size: 24px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: themed("textColor");
+          transform: scale(1.1);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+      .logo {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        object-fit: cover;
+        background: none;
+        border: 1px solid themed("border");
+        box-shadow: none;
+        transition: transform 0.2s, border-color 0.2s;
+        &:hover {
+          transform: scale(1.08);
+          border-color: themed("textColorSoft");
+        }
+      }
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      @include mobile {
+        display: none;
+      }
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          object-fit: cover;
+          transition: all 0.3s ease;
+        }
+
+        img:hover {
+          transform: scale(1.1);
+        }
+
+        span {
+          font-weight: 500;
+          font-size: 18px;
+        }
+
+        span:hover {
+          text-decoration: underline;
+        }
+      }
+      .logout-btn {
+        background: none;
+        border: none;
+        padding: 0;
+        margin-left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: themed("textColorSoft");
+        font-size: 24px;
+        transition: color 0.3s, transform 0.3s;
+        box-shadow: none;
+        &:hover {
+          color: themed("textColor");
+          transform: scale(1.1);
+        }
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+    }
+  }
+}

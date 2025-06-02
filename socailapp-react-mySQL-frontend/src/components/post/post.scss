@@ -1,0 +1,331 @@
+@use "../../style.scss" as *;
+
+.post {
+  @include themify($themes) {
+    box-shadow: 0 0 10px 5px themed("shadow");
+    border-radius: 15px;
+    background-color: themed("bg");
+    color: themed("textColor");
+    position: relative;
+    .container {
+      padding: 20px;
+      .user {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .userInfo {
+          display: flex;
+          gap: 20px;
+
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            a {
+              display: block;
+              line-height: 0;
+              text-decoration: none;
+              color: inherit;
+            }
+          }
+
+          .details {
+            display: flex;
+            flex-direction: column;
+
+            .name {
+              font-weight: 500;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+
+            .date {
+              font-size: 12px;
+            }
+          }
+        }
+
+        .moreIcon {
+          cursor: pointer;
+          z-index: 1000;
+          &:hover {
+            color: gray;
+          }
+        }
+      }
+      .menu {
+        position: absolute;
+        top: 40px;
+        right: 0;
+        padding: 10px;
+        margin: 15px 15px;
+        background-color: themed("bg");
+        border-radius: 10px;
+        border: 1px solid themed("border");
+        box-shadow: 0 4px 15px themed("shadow");
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1001;
+        min-width: 120px;
+        animation: menuFadeIn 0.2s ease;
+        pointer-events: auto;
+
+        span {
+          padding: 8px 12px;
+          cursor: pointer;
+          border-radius: 6px;
+          transition: all 0.3s ease;
+          font-size: 14px;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          &:hover {
+            background-color: themed("bgSoft");
+            transform: translateX(3px);
+          }
+
+          &:first-child {
+            color: #f0544f;
+
+            &:hover {
+              background-color: rgba(240, 84, 79, 0.1);
+            }
+          }
+
+          &:last-child {
+            color: #5271ff;
+
+            &:hover {
+              background-color: rgba(82, 113, 255, 0.1);
+            }
+          }
+        }
+
+        @keyframes menuFadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      }
+
+      .content {
+        width: 100%;
+        margin: 20px 0px;
+        img {
+          width: 100%;
+          max-height: 600px;
+          object-fit: cover;
+          margin-top: 10px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          border-radius: 10px;
+          border: 1px solid themed("border");
+          &:hover {
+            scale: 1.02;
+            box-shadow: 0 8px 16px themed("shadow");
+            transform: translateY(-2px);
+          }
+        }
+      }
+
+      .info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          cursor: pointer;
+          font-size: 16px;
+          transition: all 0.3s ease;
+          padding: 8px 12px;
+          border-radius: 8px;
+          user-select: none;
+
+          &:hover {
+            background-color: themed("bgSoft");
+            transform: translateY(-1px);
+          }
+
+          &:active {
+            transform: translateY(1px);
+          }
+
+          svg {
+            font-size: 22px;
+            transition: all 0.3s ease;
+          }
+
+          span {
+            transition: all 0.3s ease;
+          }
+
+          .likeIcon {
+            color: #f0544f;
+            animation: likeAnimation 0.5s ease;
+          }
+
+          @keyframes likeAnimation {
+            0% {
+              transform: scale(1);
+            }
+            50% {
+              transform: scale(1.4);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
+        }
+      }
+    }
+
+    .imagePreview {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      cursor: pointer;
+
+      .closeIcon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: white;
+        font-size: 35px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+
+      img {
+        max-width: 90%;
+        max-height: 90vh;
+        object-fit: contain;
+      }
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 11000;
+    }
+    .modal {
+      background: themed("bg");
+      color: themed("textColor");
+      border-radius: 12px;
+      box-shadow: 0 4px 32px themed("shadow");
+      padding: 32px 28px 24px 28px;
+      min-width: 320px;
+      max-width: 90vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: menuFadeIn 0.2s ease;
+      h3 {
+        margin: 0 0 18px 0;
+        font-size: 20px;
+        font-weight: 600;
+        text-align: center;
+      }
+      .modal-actions {
+        display: flex;
+        gap: 16px;
+        margin-top: 10px;
+        width: 100%;
+        justify-content: center;
+      }
+      .cancel-btn,
+      .delete-btn {
+        padding: 8px 22px;
+        border-radius: 6px;
+        border: none;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s, transform 0.2s;
+      }
+      .cancel-btn {
+        background: themed("bgSoft");
+        color: themed("textColor");
+        &:hover {
+          background: themed("border");
+          color: themed("textColor");
+          transform: translateY(-2px);
+        }
+        &:active {
+          background: themed("border");
+          color: themed("textColor");
+          transform: scale(0.97);
+        }
+      }
+      .delete-btn {
+        background: #f0544f;
+        color: #fff;
+        &:hover {
+          background: #c0392b;
+          transform: translateY(-2px) scale(1.04);
+        }
+        &:active {
+          background: #b83227;
+          color: #fff;
+          transform: scale(0.97);
+        }
+      }
+      .edit-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .edit-textarea {
+        width: 100%;
+        min-height: 80px;
+        max-width: 100%;
+        resize: vertical;
+        border-radius: 8px;
+        border: 1px solid themed("border");
+        padding: 10px 12px;
+        font-size: 15px;
+        color: themed("textColor");
+        background: themed("bgSoft");
+        margin-bottom: 18px;
+        transition: border 0.2s, box-shadow 0.2s;
+        &:focus {
+          outline: none;
+          border: 1.5px solid themed("primary");
+          box-shadow: 0 0 0 2px themed("primary"), 0 2px 8px themed("shadow");
+        }
+      }
+    }
+  }
+}

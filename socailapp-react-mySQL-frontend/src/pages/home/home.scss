@@ -1,0 +1,64 @@
+@use "../../style.scss" as *;
+
+.home {
+  @include themify($themes) {
+    background-color: themed("bgSoft");
+    padding: 20px 70px;
+
+    min-height: calc(100vh - 70px);
+
+    @include tablet {
+      padding: 20px;
+
+      &.collapsed {
+        margin-left: 0;
+      }
+    }
+
+    @include mobile {
+      margin-left: 0;
+      padding: 20px;
+    }
+
+    &.collapsed {
+      margin-left: 0;
+    }
+
+    h1 {
+      margin: 0;
+    }
+  }
+}
+
+.posts-toggle {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: 20px 0 10px 0;
+
+  button {
+    padding: 8px 22px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: #f6f3f3;
+    color: #333;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border 0.2s, transform 0.2s;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    &:hover {
+      background: #e0e0e0;
+      color: #222;
+      transform: translateY(-2px) scale(1.03);
+    }
+    &.active {
+      background: #5271ff;
+      color: #fff;
+      border: 1.5px solid #5271ff;
+      box-shadow: 0 4px 16px rgba(82, 113, 255, 0.08);
+      transform: none;
+    }
+  }
+}
