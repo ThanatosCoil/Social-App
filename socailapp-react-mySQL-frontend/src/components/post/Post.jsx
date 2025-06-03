@@ -133,7 +133,7 @@ const Post = ({ post }) => {
               <img
                 src={
                   post.profilePicture
-                    ? `/uploads/${post.profilePicture}`
+                    ? post.profilePicture
                     : DEFAULT_PROFILE_PICTURE
                 }
                 alt=""
@@ -178,11 +178,7 @@ const Post = ({ post }) => {
         <div className="content">
           <p>{post.desc}</p>
           {post.img && (
-            <img
-              src={`/uploads/${post.img}`}
-              alt=""
-              onClick={() => setShowPreview(true)}
-            />
+            <img src={post.img} alt="" onClick={() => setShowPreview(true)} />
           )}
         </div>
         <div className="info">
@@ -210,7 +206,7 @@ const Post = ({ post }) => {
       {showPreview && (
         <div className="imagePreview" onClick={() => setShowPreview(false)}>
           <CloseIcon className="closeIcon" />
-          <img src={`/uploads/${post.img}`} alt="" />
+          <img src={post.img ? post.img : ""} alt="" />
         </div>
       )}
 

@@ -103,7 +103,7 @@ const Comments = ({ postId }) => {
         <img
           src={
             currentUser.profilePicture
-              ? `/uploads/${currentUser.profilePicture}`
+              ? currentUser.profilePicture
               : DEFAULT_PROFILE_PICTURE
           }
           alt=""
@@ -137,7 +137,7 @@ const Comments = ({ postId }) => {
               <img
                 src={
                   comment.profilePicture
-                    ? `/uploads/${comment.profilePicture}`
+                    ? comment.profilePicture
                     : DEFAULT_PROFILE_PICTURE
                 }
                 alt=""

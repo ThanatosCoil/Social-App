@@ -80,9 +80,7 @@ const Profile = () => {
           <div className="images">
             <img
               src={
-                data.coverPicture
-                  ? `/uploads/${data.coverPicture}`
-                  : DEFAULT_COVER_PICTURE
+                data.coverPicture ? data.coverPicture : DEFAULT_COVER_PICTURE
               }
               alt="Cover"
               className="cover"
@@ -91,7 +89,7 @@ const Profile = () => {
               <img
                 src={
                   data.profilePicture
-                    ? `/uploads/${data.profilePicture}`
+                    ? data.profilePicture
                     : DEFAULT_PROFILE_PICTURE
                 }
                 alt="Profile"

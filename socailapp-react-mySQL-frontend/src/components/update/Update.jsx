@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import api from "../../../axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AuthContext } from "../../context/authContext";
+import { uploadToCloudinary } from "../../utils/cloudinaryUpload";
 
 const Update = ({ setUpdate, user }) => {
   const { updateCurrentUser } = useContext(AuthContext);
@@ -15,13 +16,13 @@ const Update = ({ setUpdate, user }) => {
     city: user.city,
     website: user.website,
   });
+  const [coverPreview, setCoverPreview] = useState(null);
+  const [profilePreview, setProfilePreview] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const upload = async (file) => {
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await api.post("/upload", formData);
-      return res.data.file.filename;
+      return await uploadToCloudinary(file);
     } catch (error) {
       toast.error("Error uploading file");
     }
@@ -50,6 +51,7 @@ const Update = ({ setUpdate, user }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let coverUrl;
     let profileUrl;
 
@@ -75,6 +77,8 @@ const Update = ({ setUpdate, user }) => {
     } catch (error) {
       toast.error("Error updating profile");
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -84,8 +88,48 @@ const Update = ({ setUpdate, user }) => {
       <div className="update">
         <h2>Update Your Profile</h2>
         <form>
-          <input type="file" onChange={(e) => setCover(e.target.files[0])} />
-          <input type="file" onChange={(e) => setProfile(e.target.files[0])} />
+          <label htmlFor="cover-upload">Select cover image:</label>
+          <input
+            type="file"
+            id="cover-upload"
+            accept="image/*"
+            onChange={(e) => {
+              setCover(e.target.files[0]);
+              setCoverPreview(
+                e.target.files[0]
+                  ? URL.createObjectURL(e.target.files[0])
+                  : null
+              );
+            }}
+          />
+          {coverPreview && (
+            <img
+              src={coverPreview}
+              alt="Cover Preview"
+              className="cover-preview-img"
+            />
+          )}
+          <label htmlFor="profile-upload">Select profile picture:</label>
+          <input
+            type="file"
+            id="profile-upload"
+            accept="image/*"
+            onChange={(e) => {
+              setProfile(e.target.files[0]);
+              setProfilePreview(
+                e.target.files[0]
+                  ? URL.createObjectURL(e.target.files[0])
+                  : null
+              );
+            }}
+          />
+          {profilePreview && (
+            <img
+              src={profilePreview}
+              alt="Profile Preview"
+              className="profile-preview-img"
+            />
+          )}
           <input
             type="text"
             name="name"
@@ -104,7 +148,9 @@ const Update = ({ setUpdate, user }) => {
             placeholder="Website"
             onChange={handleChange}
           />
-          <button onClick={handleSubmit}>Update</button>
+          <button onClick={handleSubmit} disabled={loading}>
+            {loading ? "Updating..." : "Update"}
+          </button>
         </form>
         <div className="close" onClick={() => setUpdate(false)}>
           <CloseIcon />

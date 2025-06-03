@@ -84,6 +84,12 @@
           transform: translateY(0);
           box-shadow: 0 2px 5px rgba(82, 113, 255, 0.4);
         }
+
+        &:disabled {
+          background-color: #5271ff;
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
       }
     }
 
@@ -138,4 +144,20 @@
   to {
     opacity: 1;
   }
+}
+
+.cover-preview-img {
+  width: 80px;
+  height: 40px;
+  object-fit: cover;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.profile-preview-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  margin-bottom: 8px;
+  border-radius: 50%;
 }

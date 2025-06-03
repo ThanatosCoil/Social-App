@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import api from "../../../axios";
 import CloseIcon from "@mui/icons-material/Close";
+import { uploadToCloudinary } from "../../utils/cloudinaryUpload";
 
 const Share = () => {
   const [file, setFile] = useState(null);
@@ -13,6 +14,7 @@ const Share = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [showFullPreview, setShowFullPreview] = useState(false);
   const { currentUser, DEFAULT_PROFILE_PICTURE } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -29,10 +31,7 @@ const Share = () => {
 
   const upload = async (file) => {
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await api.post("/upload", formData);
-      return res.data;
+      return await uploadToCloudinary(file);
     } catch (error) {
       toast.error("Error uploading file");
     }
@@ -60,19 +59,24 @@ const Share = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let imgUrl = "";
-    if (file) {
-      const res = await upload(file);
-      imgUrl = res.file.filename;
+    try {
+      if (file) {
+        imgUrl = await upload(file);
+      }
+      if (!desc.trim()) {
+        toast.error("Post cannot be empty.", {});
+        setLoading(false);
+        return;
+      }
+      mutation.mutate({
+        desc,
+        img: imgUrl,
+      });
+    } finally {
+      setLoading(false);
     }
-    if (!desc.trim()) {
-      toast.error("Post cannot be empty.", {});
-      return;
-    }
-    mutation.mutate({
-      desc,
-      img: imgUrl,
-    });
   };
 
   const handleImageClick = () => {
@@ -86,7 +90,7 @@ const Share = () => {
           <img
             src={
               currentUser.profilePicture
-                ? `/uploads/${currentUser.profilePicture}`
+                ? currentUser.profilePicture
                 : DEFAULT_PROFILE_PICTURE
             }
             alt=""
@@ -160,7 +164,9 @@ const Share = () => {
             </div>
           </div>
           <div className="right">
-            <button onClick={handleClick}>Share</button>
+            <button onClick={handleClick} disabled={loading}>
+              {loading ? "Uploading..." : "Share"}
+            </button>
           </div>
         </div>
       </div>

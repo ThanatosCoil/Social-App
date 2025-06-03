@@ -237,6 +237,12 @@
             transition: all 0.2s ease;
             box-shadow: 0 2px 4px themed("shadow");
 
+            &:disabled {
+              background-color: #5271ff;
+              opacity: 0.5;
+              cursor: not-allowed;
+            }
+
             @include mobile {
               width: 100%;
               padding: 10px;

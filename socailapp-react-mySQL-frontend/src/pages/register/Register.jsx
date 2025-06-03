@@ -13,6 +13,8 @@ const Register = () => {
 
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const url = `${import.meta.env.VITE_API_URL}/auth/register`;
+
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -21,10 +23,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        "http://localhost:8800/api/auth/register",
-        inputs
-      );
+      const res = await axios.post(url, inputs);
       setError(null);
       navigate("/login");
     } catch (err) {

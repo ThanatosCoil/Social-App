@@ -33,7 +33,7 @@ const Stories = () => {
         <img
           src={
             currentUser.profilePicture
-              ? `/uploads/${currentUser.profilePicture}`
+              ? currentUser.profilePicture
               : DEFAULT_PROFILE_PICTURE
           }
           alt=""

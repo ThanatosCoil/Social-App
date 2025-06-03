@@ -14,14 +14,12 @@ export const AuthContextProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("user")) || null
   );
 
+  const loginUrl = `${import.meta.env.VITE_API_URL}/auth/login`;
+
   const login = async (inputs) => {
-    const res = await axios.post(
-      "http://localhost:8800/api/auth/login",
-      inputs,
-      {
-        withCredentials: true,
-      }
-    );
+    const res = await axios.post(loginUrl, inputs, {
+      withCredentials: true,
+    });
 
     // Update the currentUser state with the response data
     setCurrentUser(res.data);
@@ -40,13 +38,10 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   // Function to log out user
+  const logoutUrl = `${import.meta.env.VITE_API_URL}/auth/logout`;
   const logout = async () => {
     try {
-      await axios.post(
-        "http://localhost:8800/api/auth/logout",
-        {},
-        { withCredentials: true }
-      );
+      await axios.post(logoutUrl, {}, { withCredentials: true });
     } catch (err) {
       // Ignore errors, just clear local state
     }
