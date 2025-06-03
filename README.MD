@@ -65,6 +65,8 @@ npm start
 
 ```
 VITE_API_URL=
+VITE_CLOUDINARY_PRESET=
+VITE_CLOUDINARY_CLOUD_NAME=
 ```
 
 ### Бэкенд (.env)
