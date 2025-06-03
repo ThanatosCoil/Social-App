@@ -1,4 +1,4 @@
-# [Social-App] (https://social-app-cyan-zeta.vercel.app) [![Открыть проект](https://img.shields.io/badge/View%20Live-Online-brightgreen?style=for-the-badge&logo=vercel)](https://social-app-cyan-zeta.vercel.app)
+# [Social-App](https://social-app-cyan-zeta.vercel.app) [![Открыть проект](https://img.shields.io/badge/View%20Live-Online-brightgreen?style=for-the-badge&logo=vercel)](https://social-app-cyan-zeta.vercel.app)
 
 ---
 
@@ -35,7 +35,7 @@
 
 ## Деплой
 
-Приложение развернуто на Vercel по адресу [social-app-cyan-zeta.vercel.app] (https://social-app-cyan-zeta.vercel.app)
+Приложение развернуто на Vercel по адресу [social-app-cyan-zeta.vercel.app](https://social-app-cyan-zeta.vercel.app)
 
 ---
 
