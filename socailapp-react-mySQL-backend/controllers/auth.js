@@ -59,31 +59,44 @@ export const register = (req, res) => {
 };
 
 export const login = (req, res) => {
-  const q = "SELECT * FROM users WHERE email = ?";
+  try {
+    const q = "SELECT * FROM users WHERE email = ?";
 
-  db.query(q, [req.body.email], (err, data) => {
-    if (err) return res.status(500).json(err);
-    if (data.length === 0) return res.status(404).json("User not found");
+    db.query(q, [req.body.email], (err, data) => {
+      if (err) {
+        console.error("DB error on login:", err);
+        return res
+          .status(500)
+          .json({ error: "DB error on login", details: err });
+      }
+      if (data.length === 0) return res.status(404).json("User not found");
 
-    const checkPassword = bcrypt.compareSync(
-      req.body.password,
-      data[0].password
-    );
-    if (!checkPassword) return res.status(400).json("Wrong password or email");
+      const checkPassword = bcrypt.compareSync(
+        req.body.password,
+        data[0].password
+      );
+      if (!checkPassword)
+        return res.status(400).json("Wrong password or email");
 
-    const token = jwt.sign({ id: data[0].id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ id: data[0].id }, process.env.JWT_SECRET);
 
-    const { password, ...others } = data[0];
+      const { password, ...others } = data[0];
 
-    res
-      .cookie("accessToken", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-      })
-      .status(200)
-      .json(others);
-  });
+      res
+        .cookie("accessToken", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+        })
+        .status(200)
+        .json(others);
+    });
+  } catch (err) {
+    console.error("Login controller error:", err);
+    return res
+      .status(500)
+      .json({ error: "Login controller error", details: err.message });
+  }
 };
 
 export const logout = (req, res) => {
